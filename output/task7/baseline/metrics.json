@@ -1,0 +1,315 @@
+{
+  "study": {
+    "preprocessing": [
+      {
+        "preprocessing": "crop",
+        "size": 32,
+        "pca_components": 100,
+        "C": 10.0,
+        "gamma": "scale",
+        "val_accuracy": 0.9986,
+        "train_seconds": 0.18,
+        "explained_variance": 0.9349
+      },
+      {
+        "preprocessing": "crop_pad",
+        "size": 32,
+        "pca_components": 100,
+        "C": 10.0,
+        "gamma": "scale",
+        "val_accuracy": 0.9958,
+        "train_seconds": 0.23,
+        "explained_variance": 0.9142
+      },
+      {
+        "preprocessing": "crop_pad",
+        "size": 16,
+        "pca_components": 100,
+        "C": 10.0,
+        "gamma": "scale",
+        "val_accuracy": 0.9944,
+        "train_seconds": 0.23,
+        "explained_variance": 0.9712
+      },
+      {
+        "preprocessing": "none",
+        "size": 32,
+        "pca_components": 100,
+        "C": 10.0,
+        "gamma": "scale",
+        "val_accuracy": 0.9916,
+        "train_seconds": 0.26,
+        "explained_variance": 0.8806
+      }
+    ],
+    "pca": [
+      {
+        "pca_components": 100,
+        "C": 10.0,
+        "gamma": "scale",
+        "val_accuracy": 0.9986,
+        "train_seconds": 0.18,
+        "explained_variance": 0.9349
+      },
+      {
+        "pca_components": 200,
+        "C": 10.0,
+        "gamma": "scale",
+        "val_accuracy": 0.9986,
+        "train_seconds": 0.25,
+        "explained_variance": 0.9718
+      },
+      {
+        "pca_components": 50,
+        "C": 10.0,
+        "gamma": "scale",
+        "val_accuracy": 0.9972,
+        "train_seconds": 0.13,
+        "explained_variance": 0.88
+      },
+      {
+        "pca_components": 30,
+        "C": 10.0,
+        "gamma": "scale",
+        "val_accuracy": 0.9944,
+        "train_seconds": 0.13,
+        "explained_variance": 0.8265
+      }
+    ],
+    "svm_grid": [
+      {
+        "C": 10.0,
+        "gamma": "scale",
+        "val_accuracy": 0.9986,
+        "train_seconds": 0.17,
+        "n_support_vectors": 714
+      },
+      {
+        "C": 10.0,
+        "gamma": 0.001,
+        "val_accuracy": 0.9986,
+        "train_seconds": 0.17,
+        "n_support_vectors": 701
+      },
+      {
+        "C": 100.0,
+        "gamma": "scale",
+        "val_accuracy": 0.9986,
+        "train_seconds": 0.17,
+        "n_support_vectors": 696
+      },
+      {
+        "C": 100.0,
+        "gamma": 0.001,
+        "val_accuracy": 0.9986,
+        "train_seconds": 0.17,
+        "n_support_vectors": 676
+      },
+      {
+        "C": 1.0,
+        "gamma": "scale",
+        "val_accuracy": 0.993,
+        "train_seconds": 0.2,
+        "n_support_vectors": 834
+      },
+      {
+        "C": 1.0,
+        "gamma": 0.001,
+        "val_accuracy": 0.993,
+        "train_seconds": 0.2,
+        "n_support_vectors": 829
+      },
+      {
+        "C": 10.0,
+        "gamma": 0.01,
+        "val_accuracy": 0.9692,
+        "train_seconds": 1.58,
+        "n_support_vectors": 2787
+      },
+      {
+        "C": 100.0,
+        "gamma": 0.01,
+        "val_accuracy": 0.9692,
+        "train_seconds": 1.56,
+        "n_support_vectors": 2787
+      },
+      {
+        "C": 1.0,
+        "gamma": 0.01,
+        "val_accuracy": 0.9678,
+        "train_seconds": 1.62,
+        "n_support_vectors": 2789
+      }
+    ],
+    "best": {
+      "preprocessing": "crop",
+      "size": 32,
+      "pca_components": 100,
+      "C": 10.0,
+      "gamma": "scale"
+    }
+  },
+  "best": {
+    "preprocessing": "crop",
+    "size": 32,
+    "pca_components": 100,
+    "C": 10.0,
+    "gamma": "scale"
+  },
+  "epochs_note": "SVM has no epochs (closed-form fit)",
+  "train_seconds": 0.18,
+  "n_support_vectors": 714,
+  "n_features_after_pca": 100,
+  "explained_variance": 0.9349,
+  "confusion_matrix": [
+    [
+      249,
+      0,
+      0,
+      4,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      254,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      254,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      2,
+      0,
+      0,
+      252,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      0,
+      252,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      2,
+      252,
+      0
+    ],
+    [
+      0,
+      1,
+      1,
+      0,
+      1,
+      0,
+      251
+    ]
+  ],
+  "report": {
+    "accuracy": 0.9921,
+    "macro": {
+      "precision": 0.9921,
+      "recall": 0.9921,
+      "f1": 0.9921
+    },
+    "per_class": {
+      "0": {
+        "precision": 0.992,
+        "recall": 0.9803,
+        "f1": 0.9861,
+        "support": 254
+      },
+      "1": {
+        "precision": 0.9922,
+        "recall": 1.0,
+        "f1": 0.9961,
+        "support": 254
+      },
+      "2": {
+        "precision": 0.9961,
+        "recall": 1.0,
+        "f1": 0.998,
+        "support": 254
+      },
+      "3": {
+        "precision": 0.9844,
+        "recall": 0.9921,
+        "f1": 0.9882,
+        "support": 254
+      },
+      "4": {
+        "precision": 0.9882,
+        "recall": 0.9921,
+        "f1": 0.9902,
+        "support": 254
+      },
+      "5": {
+        "precision": 0.9921,
+        "recall": 0.9921,
+        "f1": 0.9921,
+        "support": 254
+      },
+      "6": {
+        "precision": 1.0,
+        "recall": 0.9882,
+        "f1": 0.9941,
+        "support": 254
+      }
+    },
+    "n_samples": 1778
+  },
+  "timing": {
+    "batched_seconds": 0.158,
+    "ms_per_image_batched": 0.089,
+    "ms_per_image_single": 0.3
+  },
+  "model_bytes": 1050368,
+  "top_confusions": [
+    {
+      "true": "0",
+      "predicted": "8",
+      "count": 4
+    },
+    {
+      "true": "8",
+      "predicted": "0",
+      "count": 2
+    },
+    {
+      "true": "D",
+      "predicted": "A",
+      "count": 2
+    },
+    {
+      "true": "0",
+      "predicted": "D",
+      "count": 1
+    },
+    {
+      "true": "A",
+      "predicted": "4",
+      "count": 1
+    }
+  ]
+}

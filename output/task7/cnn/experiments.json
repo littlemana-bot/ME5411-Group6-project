@@ -1,0 +1,126 @@
+{
+  "gradient_check": {
+    "conv1.W": 2.7717732452446184e-08,
+    "conv1.b": 2.1512237708954404e-08,
+    "conv2.W": 3.285397026290359e-08,
+    "conv2.b": 6.834268684072183e-08,
+    "fc1.W": 9.629505464756875e-07,
+    "fc1.b": 1.3533888198033098e-06,
+    "fc2.W": 3.406501909967763e-07,
+    "fc2.b": 4.29814960524319e-08
+  },
+  "experiments": [
+    {
+      "name": "croppad32_na",
+      "preprocessing": "crop_pad",
+      "size": 32,
+      "channels": [
+        16,
+        32
+      ],
+      "lr": 0.003,
+      "augmentation": false,
+      "epochs": 8,
+      "n_parameters": 267975,
+      "val_accuracy": 0.9958,
+      "best_epoch": 8,
+      "train_seconds": 90.6
+    },
+    {
+      "name": "croppad32_lr",
+      "preprocessing": "crop_pad",
+      "size": 32,
+      "channels": [
+        16,
+        32
+      ],
+      "lr": 0.001,
+      "augmentation": true,
+      "epochs": 8,
+      "n_parameters": 267975,
+      "val_accuracy": 0.9916,
+      "best_epoch": 8,
+      "train_seconds": 87.69
+    },
+    {
+      "name": "crop32",
+      "preprocessing": "crop",
+      "size": 32,
+      "channels": [
+        16,
+        32
+      ],
+      "lr": 0.003,
+      "augmentation": true,
+      "epochs": 8,
+      "n_parameters": 267975,
+      "val_accuracy": 0.9902,
+      "best_epoch": 6,
+      "train_seconds": 89.54
+    },
+    {
+      "name": "croppad32_sm",
+      "preprocessing": "crop_pad",
+      "size": 32,
+      "channels": [
+        8,
+        16
+      ],
+      "lr": 0.003,
+      "augmentation": true,
+      "epochs": 8,
+      "n_parameters": 133351,
+      "val_accuracy": 0.9902,
+      "best_epoch": 8,
+      "train_seconds": 40.69
+    },
+    {
+      "name": "croppad32",
+      "preprocessing": "crop_pad",
+      "size": 32,
+      "channels": [
+        16,
+        32
+      ],
+      "lr": 0.003,
+      "augmentation": true,
+      "epochs": 8,
+      "n_parameters": 267975,
+      "val_accuracy": 0.9888,
+      "best_epoch": 7,
+      "train_seconds": 87.76
+    },
+    {
+      "name": "raw32",
+      "preprocessing": "none",
+      "size": 32,
+      "channels": [
+        16,
+        32
+      ],
+      "lr": 0.003,
+      "augmentation": true,
+      "epochs": 8,
+      "n_parameters": 267975,
+      "val_accuracy": 0.986,
+      "best_epoch": 6,
+      "train_seconds": 90.18
+    },
+    {
+      "name": "croppad24",
+      "preprocessing": "crop_pad",
+      "size": 24,
+      "channels": [
+        16,
+        32
+      ],
+      "lr": 0.003,
+      "augmentation": true,
+      "epochs": 8,
+      "n_parameters": 153287,
+      "val_accuracy": 0.979,
+      "best_epoch": 8,
+      "train_seconds": 50.48
+    }
+  ]
+}

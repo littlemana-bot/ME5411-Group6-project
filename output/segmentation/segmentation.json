@@ -1,0 +1,185 @@
+{
+  "input": "dataset_2026_updated/dataset_2026/Test_Image_2026.bmp",
+  "roi_xyxy": [
+    10,
+    185,
+    980,
+    350
+  ],
+  "parameters": {
+    "blur": 3,
+    "background": 25,
+    "threshold": 10,
+    "min_area": 100
+  },
+  "count": 10,
+  "estimated_character_width": 81.0,
+  "split_columns_roi": [
+    231,
+    846,
+    582
+  ],
+  "coordinate_convention": "xyxy, right/bottom exclusive",
+  "characters": [
+    {
+      "index": 1,
+      "bbox_roi_xyxy": [
+        50,
+        29,
+        135,
+        148
+      ],
+      "bbox_original_xyxy": [
+        60,
+        214,
+        145,
+        333
+      ],
+      "foreground_pixels": 4309
+    },
+    {
+      "index": 2,
+      "bbox_roi_xyxy": [
+        143,
+        20,
+        231,
+        154
+      ],
+      "bbox_original_xyxy": [
+        153,
+        205,
+        241,
+        339
+      ],
+      "foreground_pixels": 4641
+    },
+    {
+      "index": 3,
+      "bbox_roi_xyxy": [
+        231,
+        26,
+        312,
+        152
+      ],
+      "bbox_original_xyxy": [
+        241,
+        211,
+        322,
+        337
+      ],
+      "foreground_pixels": 3822
+    },
+    {
+      "index": 4,
+      "bbox_roi_xyxy": [
+        323,
+        13,
+        402,
+        143
+      ],
+      "bbox_original_xyxy": [
+        333,
+        198,
+        412,
+        328
+      ],
+      "foreground_pixels": 3815
+    },
+    {
+      "index": 5,
+      "bbox_roi_xyxy": [
+        415,
+        23,
+        492,
+        145
+      ],
+      "bbox_original_xyxy": [
+        425,
+        208,
+        502,
+        330
+      ],
+      "foreground_pixels": 3199
+    },
+    {
+      "index": 6,
+      "bbox_roi_xyxy": [
+        496,
+        27,
+        582,
+        146
+      ],
+      "bbox_original_xyxy": [
+        506,
+        212,
+        592,
+        331
+      ],
+      "foreground_pixels": 4696
+    },
+    {
+      "index": 7,
+      "bbox_roi_xyxy": [
+        582,
+        25,
+        669,
+        149
+      ],
+      "bbox_original_xyxy": [
+        592,
+        210,
+        679,
+        334
+      ],
+      "foreground_pixels": 4237
+    },
+    {
+      "index": 8,
+      "bbox_roi_xyxy": [
+        673,
+        28,
+        756,
+        142
+      ],
+      "bbox_original_xyxy": [
+        683,
+        213,
+        766,
+        327
+      ],
+      "foreground_pixels": 3292
+    },
+    {
+      "index": 9,
+      "bbox_roi_xyxy": [
+        759,
+        23,
+        846,
+        145
+      ],
+      "bbox_original_xyxy": [
+        769,
+        208,
+        856,
+        330
+      ],
+      "foreground_pixels": 4424
+    },
+    {
+      "index": 10,
+      "bbox_roi_xyxy": [
+        846,
+        22,
+        933,
+        147
+      ],
+      "bbox_original_xyxy": [
+        856,
+        207,
+        943,
+        332
+      ],
+      "foreground_pixels": 4669
+    }
+  ]
+}

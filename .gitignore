@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+tmp/
+output/task7/cache/
+dataset_2026_updated/
+dataset_2026_updated.zip
+ME5411_Project_AY2627.pdf
+Group_*.zip

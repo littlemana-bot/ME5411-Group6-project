@@ -1,0 +1,27 @@
+{
+  "architecture": "conv3x3-16 -> pool -> conv3x3-32 -> pool -> dense-128 -> dense-7",
+  "config": {
+    "in_size": 32,
+    "channels": [
+      16,
+      32
+    ],
+    "hidden": 128,
+    "n_classes": 7,
+    "dropout": 0.3,
+    "seed": 0
+  },
+  "preprocessing": {
+    "mode": "crop_pad",
+    "size": 32,
+    "ink": "white on black, values in [0,1]"
+  },
+  "augmentation": false,
+  "lr": 0.003,
+  "weight_decay": 0.0001,
+  "batch_size": 64,
+  "epochs": 25,
+  "seed": 0,
+  "split_seed": 42,
+  "per_class_limit": null
+}

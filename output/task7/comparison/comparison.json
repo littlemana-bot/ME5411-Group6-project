@@ -1,0 +1,112 @@
+{
+  "table": {
+    "accuracy": {
+      "cnn": 0.991,
+      "pca_svm": 0.9921
+    },
+    "macro_f1": {
+      "cnn": 0.991,
+      "pca_svm": 0.9921
+    },
+    "macro_precision": {
+      "cnn": 0.991,
+      "pca_svm": 0.9921
+    },
+    "macro_recall": {
+      "cnn": 0.991,
+      "pca_svm": 0.9921
+    },
+    "train_seconds": {
+      "cnn": 255.23,
+      "pca_svm": 0.18
+    },
+    "ms_per_image_single": {
+      "cnn": 0.85,
+      "pca_svm": 0.3
+    },
+    "ms_per_image_batched": {
+      "cnn": 0.606,
+      "pca_svm": 0.089
+    },
+    "model_bytes": {
+      "cnn": 1073874,
+      "pca_svm": 1050368
+    },
+    "parameters": {
+      "cnn": 267975,
+      "pca_svm": 72100
+    },
+    "extra_notes": {
+      "cnn": "crop_pad/32 input, channels [16, 32], lr 0.003, augmentation False, seed 0",
+      "pca_svm": "crop/32 input, 100 PCA components (0.935 variance), C=10.0, gamma=scale, 714 support vectors"
+    }
+  },
+  "per_class": [
+    {
+      "class": "0",
+      "support": 254,
+      "cnn_f1": 0.9843,
+      "pca_svm_f1": 0.9861,
+      "cnn_recall": 0.9882,
+      "pca_svm_recall": 0.9803
+    },
+    {
+      "class": "4",
+      "support": 254,
+      "cnn_f1": 0.9961,
+      "pca_svm_f1": 0.9961,
+      "cnn_recall": 1.0,
+      "pca_svm_recall": 1.0
+    },
+    {
+      "class": "7",
+      "support": 254,
+      "cnn_f1": 1.0,
+      "pca_svm_f1": 0.998,
+      "cnn_recall": 1.0,
+      "pca_svm_recall": 1.0
+    },
+    {
+      "class": "8",
+      "support": 254,
+      "cnn_f1": 0.9902,
+      "pca_svm_f1": 0.9882,
+      "cnn_recall": 0.9921,
+      "pca_svm_recall": 0.9921
+    },
+    {
+      "class": "A",
+      "support": 254,
+      "cnn_f1": 0.9941,
+      "pca_svm_f1": 0.9902,
+      "cnn_recall": 0.9921,
+      "pca_svm_recall": 0.9921
+    },
+    {
+      "class": "D",
+      "support": 254,
+      "cnn_f1": 0.9862,
+      "pca_svm_f1": 0.9921,
+      "cnn_recall": 0.9843,
+      "pca_svm_recall": 0.9921
+    },
+    {
+      "class": "H",
+      "support": 254,
+      "cnn_f1": 0.9861,
+      "pca_svm_f1": 0.9941,
+      "cnn_recall": 0.9803,
+      "pca_svm_recall": 0.9882
+    }
+  ],
+  "test_set_size": 1778,
+  "classes": [
+    "0",
+    "4",
+    "7",
+    "8",
+    "A",
+    "D",
+    "H"
+  ]
+}
