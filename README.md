@@ -7,8 +7,12 @@
 
 当前进度、结果审核注意事项及四人分工见 [进度与分工](docs/progress_and_roles.md)。
 
-课程原始数据包和题目 PDF 不随 Git 仓库上传。请从课程渠道取得数据，并确保存在
-`dataset_2026_updated/dataset_2026/0/` 等七个类别目录和同目录下的 `Test_Image_2026.bmp`。
+仓库已包含课程原始数据包 `dataset_2026_updated.zip` 和题目 `ME5411_Project_AY2627.pdf`。
+先在项目根目录执行以下命令解压数据，确保存在 `dataset_2026_updated/dataset_2026/0/` 等七个类别目录及同目录下的 `Test_Image_2026.bmp`：
+
+```powershell
+Expand-Archive -LiteralPath dataset_2026_updated.zip -DestinationPath dataset_2026_updated -Force
+```
 仓库包含保存的模型与实验结果；`output/task7/cache/` 为运行时自动生成的缓存。
 
 在项目目录下执行（需要 Python 3.10+，实测 3.14）：

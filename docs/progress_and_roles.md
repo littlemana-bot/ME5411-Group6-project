@@ -49,9 +49,9 @@
 
 ## 仓库内容与复现
 
-仓库保留源代码、依赖说明、切分结果、训练模型、指标和图表；排除 Python 缓存、临时文件、可重建的预处理数组，以及课程原始数据包和要求 PDF。
+仓库保留源代码、依赖说明、切分结果、训练模型、指标、图表、课程原始数据包 `dataset_2026_updated.zip` 和要求 `ME5411_Project_AY2627.pdf`；排除 Python 缓存、临时文件、可重建的预处理数组及已解压的数据目录。
 
-从课程渠道取得数据，解压后应有：
+在项目根目录执行 `Expand-Archive -LiteralPath dataset_2026_updated.zip -DestinationPath dataset_2026_updated -Force`，解压后应有：
 
 ```text
 dataset_2026_updated/dataset_2026/
