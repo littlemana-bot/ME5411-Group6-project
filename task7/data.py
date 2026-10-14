@@ -8,6 +8,7 @@ both the from-scratch CNN (Task 7-1) and the PCA + SVM baseline (Task 7-2).
 from __future__ import annotations
 
 import json
+import hashlib
 from pathlib import Path
 
 import numpy as np
@@ -52,7 +53,7 @@ def load_images(root: Path = DATASET_ROOT):
     return np.stack(images), np.asarray(labels, dtype=np.int64)
 
 
-def stratified_split(labels: np.ndarray, seed: int = SPLIT_SEED):
+def stratified_split(labels: np.ndarray, seed: int = SPLIT_SEED, images=None):
     """Split into train / validation / test, stratified by class.
 
     Test is TEST_FRACTION of every class (the assignment asks for a 25% test
@@ -60,6 +61,8 @@ def stratified_split(labels: np.ndarray, seed: int = SPLIT_SEED):
     VAL_FRACTION_OF_ALL of the whole class and the rest is training data.  The
     test set is never used for tuning, only for the final comparison.
     """
+    if images is not None:
+        return grouped_stratified_split(images, labels, seed)
     rng = np.random.default_rng(seed)
     train_idx, val_idx, test_idx = [], [], []
     for class_id in np.unique(labels):
@@ -75,6 +78,55 @@ def stratified_split(labels: np.ndarray, seed: int = SPLIT_SEED):
     val = np.sort(np.concatenate(val_idx))
     test = np.sort(np.concatenate(test_idx))
     return train, val, test
+
+
+def grouped_stratified_split(images, labels, seed=SPLIT_SEED):
+    """Keep identical decoded images together while meeting exact class counts.
+
+    Subset-sum selects whole duplicate groups for test and validation. It fails
+    explicitly if exact counts are impossible rather than splitting a group.
+    """
+    rng = np.random.default_rng(seed)
+    parts = [[], [], []]
+    digest_labels = {}
+    for image, label in zip(images, labels):
+        digest = hashlib.sha256(image.tobytes()).hexdigest()
+        if digest in digest_labels and digest_labels[digest] != int(label):
+            raise ValueError('Identical images have conflicting labels.')
+        digest_labels[digest] = int(label)
+
+    def select(groups, target):
+        reachable = {0: None}
+        for j, group in enumerate(groups):
+            for total in list(reachable):
+                new = total + len(group)
+                if new <= target and new not in reachable:
+                    reachable[new] = (total, j)
+            if target in reachable:
+                break
+        if target not in reachable:
+            raise ValueError(f'Cannot allocate {target} images without splitting duplicates.')
+        selected, total = set(), target
+        while total:
+            total, j = reachable[total]
+            selected.add(j)
+        return ([i for j in sorted(selected) for i in groups[j]],
+                [g for j, g in enumerate(groups) if j not in selected])
+
+    for class_id in np.unique(labels):
+        groups_by_hash = {}
+        idx = np.flatnonzero(labels == class_id)
+        for i in idx:
+            digest = hashlib.sha256(images[i].tobytes()).hexdigest()
+            groups_by_hash.setdefault(digest, []).append(int(i))
+        groups = list(groups_by_hash.values())
+        groups = [groups[j] for j in rng.permutation(len(groups))]
+        test, remaining = select(groups, int(round(len(idx) * TEST_FRACTION)))
+        val, remaining = select(remaining, int(round(len(idx) * VAL_FRACTION_OF_ALL)))
+        parts[0].extend(i for g in remaining for i in g)
+        parts[1].extend(val)
+        parts[2].extend(test)
+    return tuple(np.asarray(sorted(part), dtype=np.int64) for part in parts)
 
 
 def subset_indices(indices: np.ndarray, labels: np.ndarray, per_class: int | None,

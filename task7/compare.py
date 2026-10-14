@@ -44,9 +44,6 @@ def build_table(cnn: dict, baseline: dict) -> dict:
         'ms_per_image_batched': {'cnn': cnn['timing']['ms_per_image_batched'],
                                  'pca_svm': baseline['timing']['ms_per_image_batched']},
         'model_bytes': {'cnn': cnn['model_bytes'], 'pca_svm': baseline['model_bytes']},
-        'parameters': {'cnn': cnn['n_parameters'],
-                       'pca_svm': int(baseline['n_support_vectors']) * int(baseline['n_features_after_pca'])
-                                  + int(baseline['n_features_after_pca']) * len(CLASSES)},
         'extra_notes': {
             'cnn': f"{cnn['spec']['preprocessing']}/{cnn['spec']['size']} input, "
                    f"channels {cnn['spec']['channels']}, lr {cnn['spec']['lr']}, "
@@ -101,8 +98,6 @@ def markdown_report(table: dict, per_class: list, cnn: dict, baseline: dict) -> 
     lines.append(f"| stored model (bytes) | {table['model_bytes']['cnn']} | "
                  f"{table['model_bytes']['pca_svm']} | "
                  f"{table['model_bytes']['cnn'] / max(table['model_bytes']['pca_svm'], 1):.1f}x |")
-    lines.append(f"| free parameters | {table['parameters']['cnn']} | {table['parameters']['pca_svm']} | "
-                 f"{table['parameters']['cnn'] / max(table['parameters']['pca_svm'], 1):.1f}x |")
     lines.append('')
     lines.append('## Per-class F1\n')
     lines.append('| class | test samples | CNN F1 | PCA + SVM F1 |')
@@ -132,17 +127,10 @@ def markdown_report(table: dict, per_class: list, cnn: dict, baseline: dict) -> 
     if svm_top:
         lines.append('- PCA + SVM residual errors: ' + ', '.join(
             f"{c['true']} misread as {c['predicted']} ({c['count']}x)" for c in svm_top[:3]) + '.')
-    lines.append('- Interpretation: ' + (
-        'the CNN learns translation-tolerant stroke features directly from pixels, which pays off '
-        'when the character set mixes many typefaces, at the price of a much longer training time.'
-        if acc_cnn > acc_svm else
-        'with only seven visually distinct glyphs, both methods separate the classes well; the '
-        'classical pipeline reaches its result in seconds and with far less data, while the CNN '
-        'needs many epochs to reach the same level. The CNN advantage would be expected to grow '
-        'with more classes, more style variation or noisier inputs.'
-        if acc_svm > acc_cnn else
-        'both methods reach the same accuracy on this split; the difference is therefore in cost, '
-        'not in discrimination power.'))
+    lines.append('- Both models use the same training/validation/test indices. Small accuracy differences on this one split do not establish general superiority; no data-efficiency experiment was performed.')
+    lines.append('- Training timing excludes image loading/resizing and hyperparameter search for both methods. The SVM includes scaler/PCA fitting and feature transforms; the CNN includes per-epoch validation and checkpoint selection.')
+    lines.append('- Inference uses the same warmed-up protocol: median of three repeats, batches of 256 and 200 randomly selected single images. SVM inference includes scaler/PCA transforms; both exclude image preprocessing and file I/O.')
+    lines.append('- Model bytes are compared directly. CNN trainable parameters and SVM/PCA stored state are different quantities and are not presented as an equivalent parameter-count ratio.')
     lines.append('')
     return '\n'.join(lines)
 

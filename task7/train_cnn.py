@@ -9,6 +9,7 @@ from pathlib import Path
 import numpy as np
 
 from . import metrics
+from .timing import benchmark_predict
 from .cnn import Adam, CharCNN, fit, numerical_gradient_check
 from .data import (CLASSES, OUTPUT_ROOT, SPLIT_SEED, as_batch, build_matrix, load_images,
                    pad_for_augmentation, read_split, split_summary, stratified_split,
@@ -35,7 +36,7 @@ def prepare(per_class: int | None = None, seed: int = SPLIT_SEED):
     not overwrite the split that the real experiments share.
     """
     images, labels = load_images()
-    train, val, test = stratified_split(labels, seed=seed)
+    train, val, test = stratified_split(labels, seed=seed, images=images)
     train = subset_indices(train, labels, per_class, seed)
     val = subset_indices(val, labels, per_class, seed)
     test = subset_indices(test, labels, per_class, seed)
@@ -47,17 +48,7 @@ def prepare(per_class: int | None = None, seed: int = SPLIT_SEED):
 
 def measure_inference(model: CharCNN, x: np.ndarray, batch_size: int) -> dict:
     """Batched throughput plus single-image latency."""
-    start = time.perf_counter()
-    model.predict(x, batch_size=batch_size)
-    batched = time.perf_counter() - start
-    sample = x[:min(200, x.shape[0])]
-    start = time.perf_counter()
-    for i in range(sample.shape[0]):
-        model.predict(sample[i:i + 1], batch_size=1)
-    single = (time.perf_counter() - start) / sample.shape[0]
-    return {'batched_seconds': round(batched, 3),
-            'ms_per_image_batched': round(1000 * batched / x.shape[0], 3),
-            'ms_per_image_single': round(1000 * single, 3)}
+    return benchmark_predict(lambda batch: model.predict(batch, batch_size=batch_size), x)
 
 
 def run_experiments(images, labels, train, val, epochs: int, seed: int = 0) -> list:
@@ -126,6 +117,7 @@ def train_final(images, labels, train, val, test, spec: dict, epochs: int, seed:
     np.save(CNN_DIR / 'test_probabilities.npy', probs.astype(np.float32))
     result = {'spec': {**spec, 'seed': seed}, 'epochs': epochs, 'history': history,
               'train_seconds': round(train_seconds, 2),
+              'training_scope': 'CNN fit including per-epoch validation and best-checkpoint selection; excludes image preprocessing and hyperparameter search',
               'n_parameters': model.n_parameters(),
               'confusion_matrix': cm.tolist(),
               'report': report, 'timing': timing,

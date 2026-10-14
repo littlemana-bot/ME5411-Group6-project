@@ -1,0 +1,7 @@
+{
+  "command": "python run_task7.py --quick",
+  "exit_code": 0,
+  "formal_result_files_unchanged": 37,
+  "smoke_output": "output/task7_smoke",
+  "check": "SHA-256 of every pre-existing formal result file unchanged"
+}

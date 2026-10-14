@@ -19,6 +19,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 
 from . import metrics
+from .timing import benchmark_predict
 from .data import (CLASSES, OUTPUT_ROOT, SPLIT_SEED, build_matrix, load_images,
                    read_split, split_summary, stratified_split, subset_indices, write_split)
 
@@ -35,7 +36,7 @@ def prepare(per_class: int | None = None, seed: int = SPLIT_SEED):
     images, labels = load_images()
     saved = read_split() if per_class is None else None
     if saved is None:
-        train, val, test = stratified_split(labels, seed=seed)
+        train, val, test = stratified_split(labels, seed=seed, images=images)
         if per_class is None:
             write_split((train, val, test), summary=split_summary(labels, train, val, test))
     else:
@@ -73,8 +74,8 @@ def run_study(images, labels, train, val) -> dict:
     for mode, size in PREPROCESSING_CANDIDATES:
         key = (mode, size)
         x_tr, x_va = flat[key][train], flat[key][val]
-        scaler, pca, svm = build_pipeline(x_tr, n_components=100, C=10.0, gamma='scale')
         start = time.perf_counter()
+        scaler, pca, svm = build_pipeline(x_tr, n_components=100, C=10.0, gamma='scale')
         svm.fit(transform(scaler, pca, x_tr), labels[train])
         seconds = time.perf_counter() - start
         result = evaluate(scaler, pca, svm, x_va, labels[val])
@@ -91,8 +92,8 @@ def run_study(images, labels, train, val) -> dict:
     pca_study = []
     for n_components in PCA_CANDIDATES:
         x_tr, x_va = flat[best_pre][train], flat[best_pre][val]
-        scaler, pca, svm = build_pipeline(x_tr, n_components=n_components, C=10.0, gamma='scale')
         start = time.perf_counter()
+        scaler, pca, svm = build_pipeline(x_tr, n_components=n_components, C=10.0, gamma='scale')
         svm.fit(transform(scaler, pca, x_tr), labels[train])
         seconds = time.perf_counter() - start
         result = evaluate(scaler, pca, svm, x_va, labels[val])
@@ -109,8 +110,8 @@ def run_study(images, labels, train, val) -> dict:
     for C in C_CANDIDATES:
         for gamma in GAMMA_CANDIDATES:
             x_tr, x_va = flat[best_pre][train], flat[best_pre][val]
-            scaler, pca, svm = build_pipeline(x_tr, n_components=best_n, C=C, gamma=gamma)
             start = time.perf_counter()
+            scaler, pca, svm = build_pipeline(x_tr, n_components=best_n, C=C, gamma=gamma)
             svm.fit(transform(scaler, pca, x_tr), labels[train])
             seconds = time.perf_counter() - start
             result = evaluate(scaler, pca, svm, x_va, labels[val])
@@ -137,25 +138,17 @@ def main(args) -> dict:
 
     x = build_matrix(images, mode=best['preprocessing'], size=best['size'])
     flat = x.reshape(x.shape[0], -1)
+    start = time.perf_counter()
     scaler, pca, svm = build_pipeline(flat[train], n_components=best['pca_components'],
                                       C=best['C'], gamma=best['gamma'])
-    start = time.perf_counter()
     svm.fit(transform(scaler, pca, flat[train]), labels[train])
     train_seconds = time.perf_counter() - start
     result = evaluate(scaler, pca, svm, flat[test], labels[test])
     print(f'  test accuracy {result["report"]["accuracy"]:.4f} '
           f'macro-F1 {result["report"]["macro"]["f1"]:.4f} ({train_seconds:.1f}s training)')
 
-    # Inference timing: batched call plus single-image latency.
-    features_test = transform(scaler, pca, flat[test])
-    start = time.perf_counter()
-    svm.predict(features_test)
-    batched = time.perf_counter() - start
-    sample = 200
-    start = time.perf_counter()
-    for i in range(sample):
-        svm.predict(features_test[i:i + 1])
-    single = (time.perf_counter() - start) / sample
+    # Include standardisation and PCA for every timed inference call.
+    timing = benchmark_predict(lambda batch: svm.predict(transform(scaler, pca, batch)), flat[test])
 
     with open(BASELINE_DIR / 'model.pkl', 'wb') as handle:
         pickle.dump({'scaler': scaler, 'pca': pca, 'svm': svm, 'classes': CLASSES}, handle)
@@ -175,16 +168,15 @@ def main(args) -> dict:
                             BASELINE_DIR / 'errors.png', cols=8, cell=72,
                             title='PCA + SVM misclassified test samples (true -> predicted)')
 
-    payload = {'study': study, 'best': best, 'epochs_note': 'SVM has no epochs (closed-form fit)',
+    payload = {'study': study, 'best': best, 'epochs_note': 'SVM uses an iterative solver; no neural-network epochs',
                'train_seconds': round(train_seconds, 2),
                'n_support_vectors': int(svm.support_vectors_.shape[0]),
                'n_features_after_pca': int(pca.n_components_),
                'explained_variance': round(float(pca.explained_variance_ratio_.sum()), 4),
                'confusion_matrix': result['confusion_matrix'].tolist(),
                'report': result['report'],
-               'timing': {'batched_seconds': round(batched, 3),
-                          'ms_per_image_batched': round(1000 * batched / len(test), 3),
-                          'ms_per_image_single': round(1000 * single, 3)},
+               'timing': timing,
+               'training_scope': 'StandardScaler.fit + PCA.fit + transforms + SVC.fit; excludes image preprocessing and hyperparameter search',
                'model_bytes': int((BASELINE_DIR / 'model.pkl').stat().st_size)}
     payload['top_confusions'] = metrics.top_confusions(result['confusion_matrix'], CLASSES)
     (BASELINE_DIR / 'metrics.json').write_text(json.dumps(payload, indent=2), encoding='utf-8')

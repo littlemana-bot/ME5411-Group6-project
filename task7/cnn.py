@@ -333,7 +333,7 @@ def fit(model: CharCNN, x_train: np.ndarray, y_train: np.ndarray,
         x_val: np.ndarray, y_val: np.ndarray, epochs: int = 15, batch_size: int = 64,
         lr: float = 1e-3, weight_decay: float = 1e-4, augment: bool = True,
         extra: int = 4, seed: int = 0, verbose: bool = True, log_every: int = 5) -> dict:
-    """Mini-batch training with early stopping on the validation accuracy."""
+    """Mini-batch training for all requested epochs; restore best validation checkpoint."""
     rng = np.random.default_rng(seed)
     optimizer = Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
     history = {'loss': [], 'train_accuracy': [], 'val_accuracy': [], 'val_loss': [], 'lr': lr}

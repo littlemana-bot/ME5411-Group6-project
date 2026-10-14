@@ -1,0 +1,41 @@
+{
+  "checks": {
+    "cnn": {
+      "prediction_arrays_identical": true,
+      "confusion_matrix_identical": true,
+      "report_identical": true,
+      "errors": 14
+    },
+    "baseline": {
+      "prediction_arrays_identical": true,
+      "confusion_matrix_identical": true,
+      "report_identical": true,
+      "errors": 16
+    }
+  },
+  "test_samples": 1778,
+  "paired_outcomes": {
+    "both_correct": 1752,
+    "cnn_only_correct": 12,
+    "svm_only_correct": 10,
+    "both_wrong": 4
+  },
+  "scope": "Reloaded models; each test image was preprocessed without cached arrays. Repeated test evaluation verifies reproducibility, not hyperparameter selection.",
+  "source_sha256": {
+    "task7\\__init__.py": "fe9bbc833c9b95b87d4e8d319cefecac88a2358331fd9ff8dbeed1223ecc7aa2",
+    "task7\\audit.py": "8a18932401643678f69ccdce729c107b10d6f436f9986ebf10252980ffdcc8c6",
+    "task7\\baseline.py": "e7be98feb3091a7862fd76fbd969283207aa86955411180872e2c6b24dcff7b1",
+    "task7\\cnn.py": "62a7ac1e742a2410d1104ae9d5449bbceddde8bcea79e385b132c415595ac7e8",
+    "task7\\compare.py": "8194cd80148609a461afefe977c2ba32571d01d3ddc1252783d11761b4d86844",
+    "task7\\data.py": "365847169a7c25bbbd709124b8328511ea0566eac9d938386769001b9987fa58",
+    "task7\\metrics.py": "6fe500d016a01249dad68f841dba44ce804c7f7860c9f089dc4b46fd753fbc37",
+    "task7\\recognize.py": "26431559bcd30a000c2217c28428d54a1e56f263ca72021de442da34436569db",
+    "task7\\report_experiments.py": "a60f91c376302c2550e8cc313768118c408fa141411c5785e9e9160726d59676",
+    "task7\\segmentation_study.py": "bd9034e0472c3107d0b1b0cb8389738274f8f18f4c08788aae86f77ac12b2eca",
+    "task7\\timing.py": "a8fc36bf901765103e7beb0f017531b0fb7edf82c22df514733e32ff9f7a8086",
+    "task7\\train_cnn.py": "e4090b7ae1f7bd21888330b6f69659685cb4c329133b2d0072ab27fc3559593f",
+    "task7\\verify_results.py": "80a17db17ab7032f7cea4638a8927b131c02c9f9bcd5df4b885f66f4e76a140e",
+    "run_task7.py": "d32e9ac037a954f2db9d63d996db8f51e6e5e596ea6740ae1a9189af8d19940d",
+    "segment_characters.py": "2858069b54497fd8895692884ef9ffea3ecc1374d6350ed78909b3070d6eac06"
+  }
+}

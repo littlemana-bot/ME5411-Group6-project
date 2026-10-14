@@ -13,6 +13,7 @@ import argparse
 import time
 
 from task7 import baseline, compare, recognize, train_cnn
+from task7 import data
 
 
 def main() -> None:
@@ -26,6 +27,16 @@ def main() -> None:
         args.per_class = args.per_class or 60
         args.epochs = min(args.epochs, 3)
         args.experiment_epochs = 1
+    if args.per_class is not None:
+        # A smoke run must never overwrite full-data models, metrics or splits.
+        root = data.PROJECT_ROOT / 'output' / 'task7_smoke'
+        data.OUTPUT_ROOT = root
+        train_cnn.OUTPUT_ROOT = baseline.OUTPUT_ROOT = root
+        train_cnn.CNN_DIR = compare.CNN_DIR = recognize.CNN_DIR = root / 'cnn'
+        baseline.BASELINE_DIR = compare.BASELINE_DIR = recognize.BASELINE_DIR = root / 'baseline'
+        compare.COMPARE_DIR = root / 'comparison'
+        recognize.RECOGNIZE_DIR = root / 'recognition'
+        print(f'Smoke outputs isolated at {root}', flush=True)
 
     start = time.perf_counter()
     train_cnn.main(argparse.Namespace(epochs=args.epochs,

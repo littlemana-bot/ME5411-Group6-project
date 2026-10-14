@@ -1,0 +1,85 @@
+{
+  "environment": {
+    "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+    "executable": "C:\\Python314\\python.exe",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "AMD64 Family 25 Model 97 Stepping 2, AuthenticAMD",
+    "versions": {
+      "numpy": "2.5.3",
+      "Pillow": "12.3.0",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.18.1"
+    },
+    "thread_environment": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1"
+    }
+  },
+  "summary": {
+    "classes": [
+      "0",
+      "4",
+      "7",
+      "8",
+      "A",
+      "D",
+      "H"
+    ],
+    "seed": 42,
+    "sizes": {
+      "train": 4620,
+      "validation": 714,
+      "test": 1778
+    },
+    "fractions": {
+      "train": 0.6496,
+      "validation": 0.1004,
+      "test": 0.25
+    },
+    "per_class": {
+      "train": {
+        "0": 660,
+        "4": 660,
+        "7": 660,
+        "8": 660,
+        "A": 660,
+        "D": 660,
+        "H": 660
+      },
+      "validation": {
+        "0": 102,
+        "4": 102,
+        "7": 102,
+        "8": 102,
+        "A": 102,
+        "D": 102,
+        "H": 102
+      },
+      "test": {
+        "0": 254,
+        "4": 254,
+        "7": 254,
+        "8": 254,
+        "A": 254,
+        "D": 254,
+        "H": 254
+      }
+    }
+  },
+  "checks": {
+    "complete_disjoint_partition": true,
+    "saved_split_matches_grouped_seed": true,
+    "split_method": "sha256 decoded pixels grouped, class-stratified, exact 65/10/25 counts"
+  },
+  "decoded_pixel_dataset_sha256": "e9f0c63d2c1b6bdf945d700ebf037157e8ab65639c44bf5eb1c421e9d1f42924",
+  "exact_duplicate_groups": 651,
+  "cross_split_duplicate_groups": 0,
+  "conflicting_label_groups": 0,
+  "legacy_random_split": {
+    "cross_split_duplicate_groups": 370,
+    "train_test_duplicate_groups": 253
+  },
+  "cross_split_examples": [],
+  "limitations": "Pixel hashes cannot detect near-duplicates or shared typefaces. No writer/font group metadata is provided."
+}

@@ -1,0 +1,92 @@
+Failed to find real location of C:\Python314\python.exe
+Task 7-1: CNN (NumPy, from scratch)
+  gradient check: worst relative error 1.35e-06 over 8 tensors
+  split: train=4620 val=714 test=1778 (classes ['0', '4', '7', '8', 'A', 'D', 'H'])
+  [cnn-exp] raw32          val_acc=0.9916 params= 267975   82.9s
+  [cnn-exp] crop32         val_acc=0.9944 params= 267975   84.9s
+  [cnn-exp] croppad32      val_acc=0.9958 params= 267975   85.6s
+  [cnn-exp] croppad32_lr   val_acc=0.9916 params= 267975   85.8s
+  [cnn-exp] croppad32_sm   val_acc=0.9916 params= 133351   39.4s
+  [cnn-exp] croppad32_na   val_acc=0.9972 params= 267975   90.4s
+  [cnn-exp] croppad24      val_acc=0.9902 params= 153287   48.4s
+  best configuration: croppad32_na (val_acc=0.9972)
+    epoch   1/25: loss=0.5193 train_acc=0.8974 val_acc=0.9832 (best 0.9832 @ 1)
+    epoch   5/25: loss=0.0270 train_acc=0.9978 val_acc=0.9972 (best 0.9972 @ 5)
+    epoch  10/25: loss=0.0171 train_acc=0.9991 val_acc=0.9944 (best 0.9972 @ 5)
+    epoch  15/25: loss=0.0078 train_acc=0.9998 val_acc=0.9958 (best 0.9972 @ 5)
+    epoch  20/25: loss=0.0081 train_acc=1.0000 val_acc=0.9958 (best 0.9972 @ 5)
+    epoch  25/25: loss=0.0030 train_acc=1.0000 val_acc=0.9958 (best 0.9972 @ 5)
+  test accuracy 0.9921 macro-F1 0.9921 (299.5s training, 0.97 ms/image)
+Task 7-2: PCA + RBF SVM baseline
+  split: train=4620 val=714 test=1778
+  [svm-pre] crop_pad/32  val_acc=0.9902 pca_var=0.916   1.1s
+  [svm-pre] crop/32  val_acc=0.9902 pca_var=0.936   0.8s
+  [svm-pre] none/32  val_acc=0.9776 pca_var=0.885   1.0s
+  [svm-pre] crop_pad/16  val_acc=0.9860 pca_var=0.972   0.3s
+  [svm-pca] n=30   val_acc=0.9874 pca_var=0.773   0.6s
+  [svm-pca] n=50   val_acc=0.9888 pca_var=0.843   0.6s
+  [svm-pca] n=100  val_acc=0.9902 pca_var=0.916   1.0s
+  [svm-pca] n=200  val_acc=0.9902 pca_var=0.964   1.1s
+  [svm-grid] C=1      gamma=scale  val_acc=0.9874 sv=1108    0.9s
+  [svm-grid] C=1      gamma=0.01   val_acc=0.9188 sv=2844    2.4s
+  [svm-grid] C=1      gamma=0.001  val_acc=0.9874 sv=1094    1.0s
+  [svm-grid] C=10     gamma=scale  val_acc=0.9902 sv=886     0.9s
+  [svm-grid] C=10     gamma=0.01   val_acc=0.9258 sv=2803    2.7s
+  [svm-grid] C=10     gamma=0.001  val_acc=0.9902 sv=862     0.8s
+  [svm-grid] C=100    gamma=scale  val_acc=0.9902 sv=830     0.8s
+  [svm-grid] C=100    gamma=0.01   val_acc=0.9258 sv=2803    2.7s
+  [svm-grid] C=100    gamma=0.001  val_acc=0.9902 sv=796     0.9s
+  best configuration: {'preprocessing': 'crop_pad', 'size': 32, 'pca_components': 100, 'C': 10.0, 'gamma': 'scale'}
+  test accuracy 0.9910 macro-F1 0.9910 (1.0s training)
+# Task 7-3 comparison (numbers generated from the saved metrics)
+
+## Overall accuracy on the held-out 25% test set
+
+| metric | CNN (7-1) | PCA + SVM (7-2) | difference |
+| --- | --- | --- | --- |
+| accuracy | 0.9921 | 0.9910 | +0.0011 |
+| macro F1 | 0.9921 | 0.9910 | +0.0011 |
+| macro precision | 0.9922 | 0.9911 | +0.0011 |
+| macro recall | 0.9921 | 0.9910 | +0.0011 |
+
+## Cost
+
+| metric | CNN (7-1) | PCA + SVM (7-2) | ratio |
+| --- | --- | --- | --- |
+| training time (s) | 299.5 | 1.0 | 312x |
+| inference, 1 image (ms) | 0.970 | 0.780 | 1.2x |
+| inference, batched (ms/image) | 0.779 | 0.165 | 4.7x |
+| stored model (bytes) | 1073874 | 1196912 | 0.9x |
+
+## Per-class F1
+
+| class | test samples | CNN F1 | PCA + SVM F1 |
+| --- | --- | --- | --- |
+| 0 | 254 | 1.0000 | 0.9902 |
+| 4 | 254 | 0.9961 | 0.9941 |
+| 7 | 254 | 0.9980 | 1.0000 |
+| 8 | 254 | 0.9961 | 0.9960 |
+| A | 254 | 0.9785 | 0.9820 |
+| D | 254 | 0.9980 | 0.9902 |
+| H | 254 | 0.9781 | 0.9844 |
+
+## Configurations compared
+
+- CNN: crop_pad/32 input, channels [16, 32], lr 0.003, augmentation False, seed 0
+- PCA + SVM: crop_pad/32 input, 100 PCA components (0.916 variance), C=10.0, gamma=scale, 886 support vectors
+
+## Observations
+
+- On the same stratified split, the CNN is more accurate (0.9921 vs 0.9910, gap 0.0011).
+- Training cost differs by roughly 312x (299.5s versus 1.0s), while single-image inference is slower for the CNN (0.970 ms versus 0.780 ms).
+- CNN residual errors: H misread as A (6x), A misread as H (3x), 4 misread as A (1x).
+- PCA + SVM residual errors: A misread as H (7x), 0 misread as D (2x), A misread as 4 (2x).
+- Both models use the same training/validation/test indices. Small accuracy differences on this one split do not establish general superiority; no data-efficiency experiment was performed.
+- Training timing excludes image loading/resizing and hyperparameter search for both methods. The SVM includes scaler/PCA fitting and feature transforms; the CNN includes per-epoch validation and checkpoint selection.
+- Inference uses the same warmed-up protocol: median of three repeats, batches of 256 and 200 randomly selected single images. SVM inference includes scaler/PCA transforms; both exclude image preprocessing and file I/O.
+- Model bytes are compared directly. CNN trainable parameters and SVM/PCA stored state are different quantities and are not presented as an equivalent parameter-count ratio.
+
+[normalized] CNN: HD44780A00 (10/10 correct) | PCA+SVM: H044780A00 (9/10 correct) | expected: HD44780A00
+[      gray] CNN: HHAHHHDADD (2/10 correct) | PCA+SVM: HDHHHHDDDD (2/10 correct) | expected: HD44780A00
+[gray_enhanced] CNN: HD4478DA0D (8/10 correct) | PCA+SVM: HD4H7HDDDD (4/10 correct) | expected: HD44780A00
+Task 7 pipeline finished in 867.8s

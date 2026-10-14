@@ -1,0 +1,595 @@
+{
+  "environment": {
+    "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+    "executable": "C:\\Python314\\python.exe",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "AMD64 Family 25 Model 97 Stepping 2, AuthenticAMD",
+    "versions": {
+      "numpy": "2.5.3",
+      "Pillow": "12.3.0",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.18.1"
+    },
+    "thread_environment": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1"
+    }
+  },
+  "summary": {
+    "classes": [
+      "0",
+      "4",
+      "7",
+      "8",
+      "A",
+      "D",
+      "H"
+    ],
+    "seed": 42,
+    "sizes": {
+      "train": 4620,
+      "validation": 714,
+      "test": 1778
+    },
+    "fractions": {
+      "train": 0.6496,
+      "validation": 0.1004,
+      "test": 0.25
+    },
+    "per_class": {
+      "train": {
+        "0": 660,
+        "4": 660,
+        "7": 660,
+        "8": 660,
+        "A": 660,
+        "D": 660,
+        "H": 660
+      },
+      "validation": {
+        "0": 102,
+        "4": 102,
+        "7": 102,
+        "8": 102,
+        "A": 102,
+        "D": 102,
+        "H": 102
+      },
+      "test": {
+        "0": 254,
+        "4": 254,
+        "7": 254,
+        "8": 254,
+        "A": 254,
+        "D": 254,
+        "H": 254
+      }
+    }
+  },
+  "checks": {
+    "complete_disjoint_partition": true,
+    "saved_split_matches_seed": true
+  },
+  "decoded_pixel_dataset_sha256": "e9f0c63d2c1b6bdf945d700ebf037157e8ab65639c44bf5eb1c421e9d1f42924",
+  "exact_duplicate_groups": 651,
+  "cross_split_duplicate_groups": 370,
+  "conflicting_label_groups": 0,
+  "cross_split_examples": [
+    {
+      "indices": [
+        17,
+        21
+      ],
+      "splits": [
+        "train",
+        "test"
+      ],
+      "labels": [
+        "0",
+        "0"
+      ]
+    },
+    {
+      "indices": [
+        28,
+        40,
+        64,
+        128,
+        136,
+        144,
+        232,
+        304,
+        412,
+        416,
+        456,
+        464,
+        468,
+        584,
+        692,
+        792,
+        848,
+        864,
+        880,
+        924,
+        980
+      ],
+      "splits": [
+        "validation",
+        "train",
+        "train",
+        "test",
+        "test",
+        "train",
+        "test",
+        "test",
+        "train",
+        "train",
+        "train",
+        "test",
+        "test",
+        "validation",
+        "train",
+        "test",
+        "train",
+        "test",
+        "test",
+        "train",
+        "train"
+      ],
+      "labels": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    {
+      "indices": [
+        29,
+        41,
+        49,
+        65,
+        129,
+        137,
+        145,
+        233,
+        305,
+        413,
+        417,
+        457,
+        465,
+        469,
+        585,
+        693,
+        849,
+        865,
+        881,
+        925,
+        981,
+        1013
+      ],
+      "splits": [
+        "test",
+        "train",
+        "train",
+        "train",
+        "test",
+        "train",
+        "train",
+        "train",
+        "validation",
+        "train",
+        "train",
+        "validation",
+        "train",
+        "train",
+        "train",
+        "train",
+        "validation",
+        "train",
+        "train",
+        "train",
+        "train",
+        "train"
+      ],
+      "labels": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    {
+      "indices": [
+        30,
+        42,
+        66,
+        130,
+        138,
+        146,
+        234,
+        306,
+        414,
+        418,
+        458,
+        466,
+        470,
+        586,
+        694,
+        794,
+        850,
+        866,
+        882,
+        926,
+        982
+      ],
+      "splits": [
+        "test",
+        "train",
+        "test",
+        "test",
+        "train",
+        "test",
+        "train",
+        "test",
+        "train",
+        "train",
+        "train",
+        "train",
+        "test",
+        "train",
+        "train",
+        "train",
+        "test",
+        "train",
+        "validation",
+        "test",
+        "train"
+      ],
+      "labels": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    {
+      "indices": [
+        31,
+        43,
+        51,
+        67,
+        139,
+        147,
+        235,
+        307,
+        415,
+        419,
+        459,
+        467,
+        471,
+        587,
+        695,
+        851,
+        867,
+        883,
+        927,
+        983,
+        1015
+      ],
+      "splits": [
+        "train",
+        "validation",
+        "test",
+        "train",
+        "train",
+        "test",
+        "train",
+        "test",
+        "train",
+        "test",
+        "train",
+        "test",
+        "test",
+        "train",
+        "train",
+        "train",
+        "train",
+        "test",
+        "test",
+        "train",
+        "train"
+      ],
+      "labels": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    {
+      "indices": [
+        34,
+        35
+      ],
+      "splits": [
+        "train",
+        "test"
+      ],
+      "labels": [
+        "0",
+        "0"
+      ]
+    },
+    {
+      "indices": [
+        44,
+        280
+      ],
+      "splits": [
+        "validation",
+        "train"
+      ],
+      "labels": [
+        "0",
+        "0"
+      ]
+    },
+    {
+      "indices": [
+        76,
+        77
+      ],
+      "splits": [
+        "train",
+        "validation"
+      ],
+      "labels": [
+        "0",
+        "0"
+      ]
+    },
+    {
+      "indices": [
+        78,
+        79
+      ],
+      "splits": [
+        "train",
+        "test"
+      ],
+      "labels": [
+        "0",
+        "0"
+      ]
+    },
+    {
+      "indices": [
+        90,
+        92,
+        94
+      ],
+      "splits": [
+        "train",
+        "validation",
+        "train"
+      ],
+      "labels": [
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    {
+      "indices": [
+        97,
+        99
+      ],
+      "splits": [
+        "test",
+        "train"
+      ],
+      "labels": [
+        "0",
+        "0"
+      ]
+    },
+    {
+      "indices": [
+        114,
+        115
+      ],
+      "splits": [
+        "train",
+        "test"
+      ],
+      "labels": [
+        "0",
+        "0"
+      ]
+    },
+    {
+      "indices": [
+        120,
+        780
+      ],
+      "splits": [
+        "test",
+        "train"
+      ],
+      "labels": [
+        "0",
+        "0"
+      ]
+    },
+    {
+      "indices": [
+        122,
+        782
+      ],
+      "splits": [
+        "train",
+        "validation"
+      ],
+      "labels": [
+        "0",
+        "0"
+      ]
+    },
+    {
+      "indices": [
+        152,
+        156
+      ],
+      "splits": [
+        "test",
+        "validation"
+      ],
+      "labels": [
+        "0",
+        "0"
+      ]
+    },
+    {
+      "indices": [
+        153,
+        157
+      ],
+      "splits": [
+        "validation",
+        "train"
+      ],
+      "labels": [
+        "0",
+        "0"
+      ]
+    },
+    {
+      "indices": [
+        154,
+        158
+      ],
+      "splits": [
+        "test",
+        "train"
+      ],
+      "labels": [
+        "0",
+        "0"
+      ]
+    },
+    {
+      "indices": [
+        161,
+        163
+      ],
+      "splits": [
+        "train",
+        "validation"
+      ],
+      "labels": [
+        "0",
+        "0"
+      ]
+    },
+    {
+      "indices": [
+        244,
+        248
+      ],
+      "splits": [
+        "validation",
+        "test"
+      ],
+      "labels": [
+        "0",
+        "0"
+      ]
+    },
+    {
+      "indices": [
+        245,
+        249
+      ],
+      "splits": [
+        "test",
+        "train"
+      ],
+      "labels": [
+        "0",
+        "0"
+      ]
+    }
+  ],
+  "limitations": "Pixel hashes cannot detect near-duplicates or shared typefaces. No writer/font group metadata is provided."
+}

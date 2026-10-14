@@ -51,8 +51,8 @@ python -m task7.compare        # Task 7-3：对比表格与图
 python -m task7.recognize      # 用两套模型识别 Task 6 切出的芯片字符
 ```
 
-三个训练脚本共享 `output/task7/split.json` 记录的同一份 75/25 划分，保证对比公平。
-`--per-class N` 只用于自检，不会覆盖正式划分文件。
+两个训练入口共享 `output/task7/split.json` 记录的同一份 75/25 划分，保证对比公平。
+`python run_task7.py --quick` 或该入口的 `--per-class N` 会把自检模型和结果隔离保存到 `output/task7_smoke/`，不覆盖正式结果。独立训练模块的 `--per-class` 仅供开发使用，会写入其默认结果目录。
 
 ## Task 1–6：处理流程
 
@@ -79,7 +79,7 @@ python -m task7.recognize      # 用两套模型识别 Task 6 切出的芯片字
 ## Task 7：两套分类方法
 
 数据为 7 类字符（`0 4 7 8 A D H`），每类 1016 张 128×128 灰度图，共 7112 张。
-按类别分层划分：25% 测试（1778 张，全程不参与调参）、10% 验证（714 张，用于选预处理与超参数）、
+2026-10-14 的数据审核发现原随机划分有 370 组完全相同的像素图跨集合。当前改为按解码像素 SHA-256 分组，重复图片只能属于一个集合，再按类别分层划分：25% 测试（1778 张，全程不参与调参）、10% 验证（714 张，用于选预处理与超参数）、
 65% 训练（4620 张）。随机种子固定为 42。
 
 ### Task 7-1：从零实现的 CNN（`task7/cnn.py`）
@@ -99,7 +99,7 @@ python -m task7.recognize      # 用两套模型识别 Task 6 切出的芯片字
 ### Task 7-3：对比（`task7/compare.py`）
 
 对比准确率、宏平均精确率/召回率/F1、每类 F1、训练时间、单张推理延迟、批推理延迟、
-模型体积与参数量，并列出两个方法的主要混淆对。结果表格见
+模型文件体积，并列出两个方法的主要混淆对。结果表格见
 `output/task7/comparison/comparison.md` 与 `comparison.json`。
 
 ### 端到端识别（`task7/recognize.py`）
@@ -107,7 +107,7 @@ python -m task7.recognize      # 用两套模型识别 Task 6 切出的芯片字
 把 Task 6 切出的 10 个字符送入两个模型，输出识别字符串。测试三种输入：
 `normalized`（切分后的干净二值字符）、`gray`（照片原始灰度裁剪）、
 `gray_enhanced`（灰度裁剪经对比度拉伸 + 轻度去噪并用 Otsu 估计裁剪框）。
-三种输入的差异量化了训练集（干净渲染字形）与实拍图之间的域差异。
+三种输入用于观察这张实拍图与干净训练图之间的输入差异；仅一张图不能支持普遍鲁棒性结论。SVM 的 confidence 字段是决策分数经 softmax 的展示值，不是校准概率。
 
 ## 目录结构
 
@@ -130,3 +130,23 @@ dataset_2026_updated/      提供的图像数据集
 
 - 本实现针对提供的固定图片，ROI 和阈值由观察该图选取。宽字符切分依赖字符宽度相近的假设，遇到不同字体、断笔或更多粘连时需要重新检查。框数量正确不等于字符内容正确，仍需检查字符图和后续识别结果。
 - 项目要求的实验分析和报告结论须由小组根据实际结果形成；使用的 NumPy、Pillow、scikit-learn 以及其他外部资源应在报告中引用。
+
+## 实验复核（2026-10-14）
+
+先运行 `python -m task7.audit` 检查分组划分；正式完整实验为 `python run_task7.py`。
+训练后运行：
+
+```powershell
+python -m task7.verify_results
+python -m task7.segmentation_study
+```
+
+`verify_results` 重新加载模型，对未使用缓存的测试图预处理并重新预测，逐一核对保存预测、混淆矩阵及指标。
+`segmentation_study` 固定测试 3 个平滑尺度 × 3 个阈值，检查分割和芯片识别的参数敏感性，不用芯片图片训练或选择分类器。
+结果与环境记录位于 `output/task7/verification/`。
+
+完整计时范围：SVM 包含标准化/PCA 拟合与变换；CNN 包含训练、逐轮验证和最佳验证权重恢复。
+两者均不包含图像读盘/裁剪缩放及超参数搜索。推理采用预热后 3 次计时的中位数、256 张批次及固定随机抽取的 200 张单图；SVM 包含标准化和 PCA 变换。
+数值只能描述记录环境下的该次运行。CNN 的可训练参数与 SVM/PCA 状态不作等价数量比较。
+
+本次完整复跑与审核结果见 [2026-10-14 实验记录](docs/experiment_results_20261014.md)。核心依赖实测版本见 `requirements-tested.txt`。快速自检已实跑通过，正式结果文件 SHA-256 保持不变，证据见 `output/task7/verification/smoke_isolation.json`。
