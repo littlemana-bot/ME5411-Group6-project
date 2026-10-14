@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main():
     files = []
-    for name in ['README.md', 'requirements.txt', 'requirements-tested.txt',
+    for name in ['.gitattributes', 'README.md', 'requirements.txt', 'requirements-tested.txt',
                  'segment_characters.py', 'run_task7.py', 'dataset_2026_updated.zip',
                  'ME5411_Project_AY2627.pdf']:
         path = ROOT/name
