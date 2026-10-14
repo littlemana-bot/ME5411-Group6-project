@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="886" viewBox="0 0 1500 886">
+<rect width="100%" height="100%" fill="white"/>
+<text x="60" y="55" font-family="Arial" font-size="34" font-weight="bold">PCA and SVM classification pipeline</text>
+<rect x="70" y="100" width="1360" height="95" fill="#f3f4f5" stroke="#555" stroke-width="2"/>
+<text x="100" y="144" font-family="Arial" font-size="28">Crop ink bounding box with padding</text>
+<text x="100" y="178" font-family="Arial" font-size="28">Pad to square and resize to 32 by 32</text>
+<path d="M 750 195 V 223" stroke="black" stroke-width="3"/><path d="M 750 231 l -9 -12 h 18 z"/>
+<rect x="70" y="231" width="1360" height="95" fill="#f3f4f5" stroke="#555" stroke-width="2"/>
+<text x="100" y="275" font-family="Arial" font-size="28">Flatten into 1024 pixel features</text>
+<path d="M 750 326 V 354" stroke="black" stroke-width="3"/><path d="M 750 362 l -9 -12 h 18 z"/>
+<rect x="70" y="362" width="1360" height="95" fill="#f3f4f5" stroke="#555" stroke-width="2"/>
+<text x="100" y="406" font-family="Arial" font-size="28">StandardScaler  fitted on training data only</text>
+<path d="M 750 457 V 485" stroke="black" stroke-width="3"/><path d="M 750 493 l -9 -12 h 18 z"/>
+<rect x="70" y="493" width="1360" height="95" fill="#f3f4f5" stroke="#555" stroke-width="2"/>
+<text x="100" y="537" font-family="Arial" font-size="28">PCA 100 components  fitted on training data only</text>
+<path d="M 750 588 V 616" stroke="black" stroke-width="3"/><path d="M 750 624 l -9 -12 h 18 z"/>
+<rect x="70" y="624" width="1360" height="95" fill="#f3f4f5" stroke="#555" stroke-width="2"/>
+<text x="100" y="668" font-family="Arial" font-size="28">RBF SVM  C equals 10  gamma equals scale</text>
+<path d="M 750 719 V 747" stroke="black" stroke-width="3"/><path d="M 750 755 l -9 -12 h 18 z"/>
+<rect x="70" y="755" width="1360" height="95" fill="#f3f4f5" stroke="#555" stroke-width="2"/>
+<text x="100" y="799" font-family="Arial" font-size="28">Select preprocessing and parameters on validation data</text>
+<text x="100" y="833" font-family="Arial" font-size="28">Evaluate selected pipeline on held out test data</text>
+</svg>

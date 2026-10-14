@@ -150,3 +150,9 @@ python -m task7.segmentation_study
 数值只能描述记录环境下的该次运行。CNN 的可训练参数与 SVM/PCA 状态不作等价数量比较。
 
 本次完整复跑与审核结果见 [2026-10-14 实验记录](docs/experiment_results_20261014.md)。核心依赖实测版本见 `requirements-tested.txt`。快速自检已实跑通过，正式结果文件 SHA-256 保持不变，证据见 `output/task7/verification/smoke_isolation.json`。
+
+## 报告与复核包
+
+英文技术稿见 `output/report/ME5411_Group06_Report_Draft.pdf`，可编辑文本见 `docs/report_draft.md`，四张 SVG 流程图见 `docs/figures/`。详细状态与定稿补充项见 [提交说明](docs/submission_readme.md)。
+
+运行 `python tools/package_submission.py` 生成 `output/submission/Group_06_review.zip`。新虚拟环境与解压副本已通过切分、模型复核和端到端识别验收，记录见 `docs/package_acceptance.json`；第二环境未重跑完整训练。报告和包仍明确标为待组员确认的草稿。

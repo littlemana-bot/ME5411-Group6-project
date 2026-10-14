@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "tested_archive_sha256": "d8705e425cdd951362cb6e1329b83479dc40c2671e391cd959ccb774cdfd2b8c",
+  "interpreter": "D:\\code\\Project_export\\tmp\\submission_venv\\Scripts\\python.exe",
+  "isolated_environment": true,
+  "core_versions": {
+    "numpy": "2.5.3",
+    "Pillow": "12.3.0",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1"
+  },
+  "checks": [
+    "Fresh archive extraction and manifest verification",
+    "New virtual environment with no system site packages",
+    "NumPy and scikit-learn imported from new environment",
+    "Segmentation returns ten crops",
+    "Reloaded predictions and confusion matrices exactly match",
+    "All three recognition variants match original results"
+  ],
+  "runtime_files_identical_to_current_project": 18,
+  "full_training_repeated_in_new_environment": false,
+  "scope": "Recorded-model inference and preprocessing acceptance; subsequent report-only edits do not change classifier source models or data."
+}

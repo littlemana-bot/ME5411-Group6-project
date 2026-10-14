@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1017" viewBox="0 0 1500 1017">
+<rect width="100%" height="100%" fill="white"/>
+<text x="60" y="55" font-family="Arial" font-size="34" font-weight="bold">Image processing and character segmentation</text>
+<rect x="70" y="100" width="1360" height="95" fill="#f3f4f5" stroke="#555" stroke-width="2"/>
+<text x="100" y="144" font-family="Arial" font-size="28">Read RGB chip image and convert to grayscale</text>
+<path d="M 750 195 V 223" stroke="black" stroke-width="3"/><path d="M 750 231 l -9 -12 h 18 z"/>
+<rect x="70" y="231" width="1360" height="95" fill="#f3f4f5" stroke="#555" stroke-width="2"/>
+<text x="100" y="275" font-family="Arial" font-size="28">Save contrast stretch and mean filter comparisons</text>
+<text x="100" y="309" font-family="Arial" font-size="28">Demonstration branch only</text>
+<path d="M 750 326 V 354" stroke="black" stroke-width="3"/><path d="M 750 362 l -9 -12 h 18 z"/>
+<rect x="70" y="362" width="1360" height="95" fill="#f3f4f5" stroke="#555" stroke-width="2"/>
+<text x="100" y="406" font-family="Arial" font-size="28">Crop raw grayscale ROI  x 10 to 980  y 185 to 350</text>
+<path d="M 750 457 V 485" stroke="black" stroke-width="3"/><path d="M 750 493 l -9 -12 h 18 z"/>
+<rect x="70" y="493" width="1360" height="95" fill="#f3f4f5" stroke="#555" stroke-width="2"/>
+<text x="100" y="537" font-family="Arial" font-size="28">Gaussian smoothing sigma 3 minus background sigma 25</text>
+<path d="M 750 588 V 616" stroke="black" stroke-width="3"/><path d="M 750 624 l -9 -12 h 18 z"/>
+<rect x="70" y="624" width="1360" height="95" fill="#f3f4f5" stroke="#555" stroke-width="2"/>
+<text x="100" y="668" font-family="Arial" font-size="28">Threshold response above 10</text>
+<text x="100" y="702" font-family="Arial" font-size="28">Keep components with area at least 100 and height at least 66</text>
+<path d="M 750 719 V 747" stroke="black" stroke-width="3"/><path d="M 750 755 l -9 -12 h 18 z"/>
+<rect x="70" y="755" width="1360" height="95" fill="#f3f4f5" stroke="#555" stroke-width="2"/>
+<text x="100" y="799" font-family="Arial" font-size="28">Estimate character width and split wide components</text>
+<text x="100" y="833" font-family="Arial" font-size="28">Use local minima of vertical foreground projection</text>
+<path d="M 750 850 V 878" stroke="black" stroke-width="3"/><path d="M 750 886 l -9 -12 h 18 z"/>
+<rect x="70" y="886" width="1360" height="95" fill="#f3f4f5" stroke="#555" stroke-width="2"/>
+<text x="100" y="930" font-family="Arial" font-size="28">Sort boxes from left to right and export ten crops</text>
+<text x="100" y="964" font-family="Arial" font-size="28">Save grayscale binary and 64 by 64 normalized versions</text>
+</svg>
